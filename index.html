@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle Financeiro & Corridas</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #111; color: #fff; }
+    nav { display: flex; gap: 10px; padding: 10px; background: #222; }
+    nav button { padding: 10px; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    nav button.active { background: #007bff; }
+    .tab { display: none; padding: 20px; }
+    input, select { display: block; margin: 5px 0; padding: 5px; width: 100%; }
+    button { margin: 5px 0; }
+    .summary { margin-top: 15px; padding: 10px; background: #222; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Controle Financeiro & Corridas</h1>
+  <nav>
+    <button onclick="showTab('financas')">Finanças</button>
+    <button onclick="showTab('corridas')">Corridas</button>
+    <button onclick="showTab('reports')">Relatórios</button>
+  </nav>
+
+  <div id="financas" class="tab">
+    <h2>Finanças</h2>
+    <input type="date" id="fin-date">
+    <input type="number" id="fin-amount" placeholder="Valor">
+    <select id="fin-type">
+      <option value="income">Receita</option>
+      <option value="expense">Despesa</option>
+    </select>
+    <input type="text" id="fin-category" placeholder="Categoria">
+    <input type="text" id="fin-subcategory" placeholder="Subcategoria">
+    <button onclick="addFinance()">Adicionar</button>
+    <div id="finance-list"></div>
+  </div>
+
+  <div id="corridas" class="tab">
+    <h2>Corridas</h2>
+    <input type="date" id="run-date">
+    <input type="number" id="run-earnings" placeholder="Ganhos do dia">
+    <input type="number" id="run-km" placeholder="Quilometragem">
+    <input type="number" id="run-gas" placeholder="Gasto com gasolina">
+    <input type="number" id="run-oil" placeholder="Gasto com óleo">
+    <input type="number" id="run-brakes" placeholder="Gasto com freios">
+    <input type="number" id="run-maintenance" placeholder="Gasto com manutenção">
+    <button onclick="addRun()">Adicionar Corrida</button>
+    <button onclick="backupRuns()">Backup Corridas</button>
+    <input type="file" id="restore-runs" onchange="restoreRuns(event)">
+    <canvas id="runsChart" width="300" height="300"></canvas>
+    <div class="summary" id="runs-daily"></div>
+    <div class="summary" id="runs-weekly"></div>
+    <div class="summary" id="runs-monthly"></div>
+  </div>
+
+  <div id="reports" class="tab">
+    <h2>Relatórios Financeiros</h2>
+    <div id="daily-summary"></div>
+    <div id="weekly-summary"></div>
+    <div id="monthly-summary"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
